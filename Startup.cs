@@ -7,14 +7,21 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using DESNEA.VirazonCore.App.Entidades.Configuracion;
+using DESNEA.VirazonCore.App.Entidades.Inferfaces.Configuracion;
 
 namespace DESNEA_VirazonCore
 {
     public class Startup
     {
+        public IGeneralConfig GeneralConfig { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            GeneralConfig = new GeneralConfig();
+            GeneralConfig.ConnectionString = Configuration["ConnectionStrings:CGPComprasConnectionString"];
+            GeneralConfig.ApiUrl = Configuration["Urls:ApiUrl"];
+            GeneralConfig.WebUrl = Configuration["Urls:WebUrl"];
         }
 
         public IConfiguration Configuration { get; }
